@@ -3,154 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishal City Grocery</title>
+    <title>Vishal Grocery Store</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
             background: #f8f8f8;
         }
         header {
-            background: #28a745;
+            background: #2a7a2e;
             color: white;
-            padding: 15px;
             text-align: center;
-        }
-        header h1 {
-            margin: 0;
+            padding: 15px;
+            font-size: 1.5em;
         }
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 15px;
-            padding: 15px;
+            padding: 20px;
         }
         .product {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            text-align: center;
+            border-radius: 8px;
             padding: 10px;
+            text-align: center;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
         }
         .product img {
-            width: 100%;
-            height: 180px;
+            max-width: 100%;
+            height: 160px;
             object-fit: cover;
-            border-radius: 8px;
-        }
-        .product h3 {
-            margin: 10px 0 5px;
-            font-size: 18px;
-        }
-        .product p {
-            margin: 5px 0;
-            color: #555;
+            border-radius: 6px;
         }
         .price {
-            color: #28a745;
             font-weight: bold;
-            font-size: 16px;
+            color: #e63946;
+            margin-top: 5px;
         }
-        .order-btn {
-            background: #ff6600;
+        button {
+            background: #2a7a2e;
             color: white;
             border: none;
             padding: 8px 12px;
-            margin-top: 8px;
+            margin-top: 10px;
             cursor: pointer;
             border-radius: 5px;
         }
+        button:hover {
+            background: #256624;
+        }
         footer {
-            background: #333;
+            background: #222;
             color: white;
-            padding: 15px;
             text-align: center;
+            padding: 15px;
             margin-top: 20px;
         }
-        .delivery-info {
-            color: #ff0000;
-            font-weight: bold;
-            margin-top: 5px;
+        .delivery-note {
+            text-align: center;
+            font-size: 1em;
+            background: #fffae6;
+            padding: 10px;
+            color: #333;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Vishal City Grocery</h1>
-    <p>Offline & Online Orders Accepted | Delivery in 7 Days</p>
-</header>
+    <header>🛒 Vishal Grocery Store</header>
 
-<section class="products">
-    <div class="product">
-        <img src="https://i.imgur.com/6IUBqCm.jpg" alt="Atta">
-        <h3>Wheat Atta</h3>
-        <p class="price">₹45/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
+    <div class="delivery-note">📦 Delivery within 7 Days | Offline & Online Orders Accepted</div>
 
-    <div class="product">
-        <img src="https://i.imgur.com/w1mI0mD.jpg" alt="Rice">
-        <h3>Basmati Rice</h3>
-        <p class="price">₹90/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
+    <section class="products">
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71lQGf5hLpL._SX679_.jpg" alt="Basmati Rice">
+            <h3>Basmati Rice 5kg</h3>
+            <div class="price">₹450</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/81x4v4rKQML._SX679_.jpg" alt="Wheat Flour">
+            <h3>Wheat Flour 5kg</h3>
+            <div class="price">₹250</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71lZw5GR7sL._SX679_.jpg" alt="Mustard Oil">
+            <h3>Mustard Oil 1L</h3>
+            <div class="price">₹180</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71d6EJxZ5uL._SX679_.jpg" alt="Sugar">
+            <h3>Sugar 1kg</h3>
+            <div class="price">₹45</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71p2xdoDgpL._SX679_.jpg" alt="Tea Powder">
+            <h3>Tea Powder 500g</h3>
+            <div class="price">₹230</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/71hPYysFG-L._SX679_.jpg" alt="Salt">
+            <h3>Salt 1kg</h3>
+            <div class="price">₹25</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/91jU8RZpn8L._SX679_.jpg" alt="Detergent Powder">
+            <h3>Detergent Powder 1kg</h3>
+            <div class="price">₹60</div>
+            <button>Order Now</button>
+        </div>
+        <div class="product">
+            <img src="https://m.media-amazon.com/images/I/81Zuh3Bt2WL._SX679_.jpg" alt="Toor Dal">
+            <h3>Toor Dal 1kg</h3>
+            <div class="price">₹140</div>
+            <button>Order Now</button>
+        </div>
+    </section>
 
-    <div class="product">
-        <img src="https://i.imgur.com/hl6kS7F.jpg" alt="Sugar">
-        <h3>Sugar</h3>
-        <p class="price">₹42/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-
-    <div class="product">
-        <img src="https://i.imgur.com/6QoF6fV.jpg" alt="Tea">
-        <h3>Premium Tea</h3>
-        <p class="price">₹250/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-
-    <div class="product">
-        <img src="https://i.imgur.com/W9lmqxo.jpg" alt="Oil">
-        <h3>Refined Oil</h3>
-        <p class="price">₹120/L</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-
-    <div class="product">
-        <img src="https://i.imgur.com/Xb9oepR.jpg" alt="Salt">
-        <h3>Salt</h3>
-        <p class="price">₹20/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-
-    <div class="product">
-        <img src="https://i.imgur.com/3LkZpKf.jpg" alt="Dal">
-        <h3>Toor Dal</h3>
-        <p class="price">₹110/kg</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-
-    <div class="product">
-        <img src="https://i.imgur.com/1OdPNcX.jpg" alt="Masala">
-        <h3>Mixed Masala</h3>
-        <p class="price">₹60/100g</p>
-        <p class="delivery-info">Delivery: 7 Days</p>
-        <button class="order-btn">Order Now</button>
-    </div>
-</section>
-
-<footer>
-    <p>Contact us: 6206364936 | vishalk785808@gmail.com</p>
-    <p>Paliganj, Bihar - 801110</p>
-</footer>
+    <footer>
+        📍 Paliganj, Bihar | 📞 +91-6206364936 | 📧 vishalk785808@gmail.com
+    </footer>
 
 </body>
 </html>
