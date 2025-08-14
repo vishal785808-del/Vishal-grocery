@@ -1,78 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishal Grocery Store - Paliganj</title>
-<style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header { background: green; color: white; padding: 20px; text-align: center; }
-    nav { background: #eee; padding: 10px; text-align: center; }
-    nav a { margin: 0 15px; text-decoration: none; color: green; font-weight: bold; }
-    section { padding: 20px; }
-    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-    .product { border: 1px solid #ddd; padding: 10px; text-align: center; }
-    .product h3 { margin-bottom: 5px; }
-    .product p { margin: 5px 0; }
-    footer { background: #333; color: white; text-align: center; padding: 10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal City Grocery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f8f8f8;
+        }
+        header {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            padding: 15px;
+        }
+        .product {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            text-align: center;
+            padding: 10px;
+        }
+        .product img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+            font-size: 18px;
+        }
+        .product p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .order-btn {
+            background: #ff6600;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin-top: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .delivery-info {
+            color: #ff0000;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
+
 <header>
-    <h1>Vishal Grocery Store</h1>
-    <p>Paliganj, Pincode: 801110 | Delivery in 7 Days</p>
+    <h1>Vishal City Grocery</h1>
+    <p>Offline & Online Orders Accepted | Delivery in 7 Days</p>
 </header>
-<nav>
-    <a href="#about">About Us</a>
-    <a href="#products">Products</a>
-    <a href="#order">Order</a>
-    <a href="#contact">Contact</a>
-    <a href="#policy">Policies</a>
-</nav>
 
-<section id="about">
-    <h2>About Us</h2>
-    <p>Vishal Grocery Store ek trusted grocery store hai jo Paliganj aur aas-paas ke area me fresh grocery, daily needs aur household items provide karta hai. Ham offline aur online dono order accept karte hain.</p>
-</section>
+<section class="products">
+    <div class="product">
+        <img src="https://i.imgur.com/6IUBqCm.jpg" alt="Atta">
+        <h3>Wheat Atta</h3>
+        <p class="price">₹45/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
 
-<section id="products">
-    <h2>Our Products</h2>
-    <div class="products">
-        <div class="product"><h3>Atta</h3><p>Best quality wheat flour</p><p><strong>₹250 / 10kg</strong></p></div>
-        <div class="product"><h3>Chawal</h3><p>Premium rice</p><p><strong>₹600 / 25kg</strong></p></div>
-        <div class="product"><h3>Dal Arhar</h3><p>High quality pulses</p><p><strong>₹120 / kg</strong></p></div>
-        <div class="product"><h3>Refined Oil</h3><p>Sunflower & Soyabean</p><p><strong>₹150 / litre</strong></p></div>
-        <div class="product"><h3>Mustard Oil</h3><p>Cold pressed</p><p><strong>₹160 / litre</strong></p></div>
-        <div class="product"><h3>Biscuit Pack</h3><p>Branded biscuits</p><p><strong>₹20 - ₹50</strong></p></div>
-        <div class="product"><h3>Milk</h3><p>Fresh dairy milk</p><p><strong>₹50 / litre</strong></p></div>
-        <div class="product"><h3>Tea</h3><p>Premium tea leaves</p><p><strong>₹200 / kg</strong></p></div>
+    <div class="product">
+        <img src="https://i.imgur.com/w1mI0mD.jpg" alt="Rice">
+        <h3>Basmati Rice</h3>
+        <p class="price">₹90/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/hl6kS7F.jpg" alt="Sugar">
+        <h3>Sugar</h3>
+        <p class="price">₹42/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/6QoF6fV.jpg" alt="Tea">
+        <h3>Premium Tea</h3>
+        <p class="price">₹250/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/W9lmqxo.jpg" alt="Oil">
+        <h3>Refined Oil</h3>
+        <p class="price">₹120/L</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/Xb9oepR.jpg" alt="Salt">
+        <h3>Salt</h3>
+        <p class="price">₹20/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/3LkZpKf.jpg" alt="Dal">
+        <h3>Toor Dal</h3>
+        <p class="price">₹110/kg</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
+    </div>
+
+    <div class="product">
+        <img src="https://i.imgur.com/1OdPNcX.jpg" alt="Masala">
+        <h3>Mixed Masala</h3>
+        <p class="price">₹60/100g</p>
+        <p class="delivery-info">Delivery: 7 Days</p>
+        <button class="order-btn">Order Now</button>
     </div>
 </section>
 
-<section id="order">
-    <h2>How to Order</h2>
-    <p><strong>Offline Order:</strong> Hamare store pe aakar order karein.</p>
-    <p><strong>Online Order:</strong> Hame call ya email karke apna order details bhejein. Payment cash on delivery ya online mode se kar sakte hain.</p>
-    <p><strong>Delivery Time:</strong> 7 din ke andar aapka saman pahunch jayega.</p>
-</section>
-
-<section id="contact">
-    <h2>Contact Us</h2>
-    <p><strong>Address:</strong> Paliganj, Parion Jio Tower</p>
-    <p><strong>Phone:</strong> 6206364936</p>
-    <p><strong>Email:</strong> <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a></p>
-</section>
-
-<section id="policy">
-    <h2>Our Policies</h2>
-    <h3>Terms & Conditions</h3>
-    <p>Customers ko saman receive karte waqt verify karna hoga. Delivery ke baad return sirf damage hone par hi liya jayega.</p>
-    <h3>Privacy Policy</h3>
-    <p>Ham aapka personal data sirf order process aur service improve karne ke liye use karte hain.</p>
-</section>
-
 <footer>
-    <p>&copy; 2025 Vishal Grocery Store | Paliganj</p>
+    <p>Contact us: 6206364936 | vishalk785808@gmail.com</p>
+    <p>Paliganj, Bihar - 801110</p>
 </footer>
+
 </body>
 </html>
