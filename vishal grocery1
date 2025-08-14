@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vishal City Grocery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        section {
+            padding: 20px;
+            background-color: white;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .contact {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Vishal City Grocery</h1>
+    <p>Paliganj, Pincode 801110</p>
+</header>
+
+<section>
+    <h2>About Us</h2>
+    <p>Vishal City Grocery me aapko fresh fruits, vegetables, and daily grocery items milte hain. Quality aur trust hamara pehla priority hai.</p>
+
+    <h2>Contact Information</h2>
+    <div class="contact">
+        <p><strong>Owner:</strong> Vishal</p>
+        <p><strong>Phone:</strong> 6206364936</p>
+        <p><strong>Email:</strong> vishalk785808@gmail.com</p>
+        <p><strong>Address:</strong> Paliganj, Jio Tower ke paas</p>
+    </div>
+</section>
+
+</body>
+</html>
