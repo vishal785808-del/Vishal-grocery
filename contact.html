@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — Vishal Grocery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand" onclick="goPage('index.html')">🛒 Vishal Grocery</div>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">My Orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h1>Contact Us</h1>
+      <p>📍 Paliganj, Bihar</p>
+      <p>📞 <a href="tel:+916206364936">+91-6206364936</a></p>
+      <p>📧 <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a></p>
+      <p>For quick help, chat on WhatsApp:</p>
+      <button class="btn" onclick="window.open('https://wa.me/916206364936?text='+encodeURIComponent('Hi Vishal, I have a query'), '_blank')">Chat on WhatsApp</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot-inner">
+      <div>© <span id="year3"></span> Vishal Grocery</div>
+      <div>📞 +91-6206364936</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year3').innerText = new Date().getFullYear();
+    function goPage(p){ location.href = p; }
+  </script>
+</body>
+</html>

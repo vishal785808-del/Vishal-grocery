@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Vishal Grocery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand" onclick="goPage('index.html')">🛒 Vishal Grocery <span class="small">Paliganj</span></div>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">My Orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h1>About Vishal Grocery</h1>
+      <p>Welcome to Vishal Grocery — your neighbourhood grocery shop in Paliganj, Bihar. We provide trusted staples, quality brands, and great service. Order via WhatsApp for quick processing and pincode-based delivery ETA.</p>
+      <ul>
+        <li>FSSAI compliant and sealed goods</li>
+        <li>Same-day dispatch for local orders</li>
+        <li>Easy returns (sealed products) within 3 days</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot-inner">
+      <div>© <span id="year2"></span> Vishal Grocery</div>
+      <div>📞 +91-6206364936</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year2').innerText = new Date().getFullYear();
+    function goPage(p){ location.href = p; }
+  </script>
+</body>
+</html>
