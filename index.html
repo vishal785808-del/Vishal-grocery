@@ -1,29 +1,118 @@
+<!--
+  Vishal Grocery - Single File Ready Page
+  - 30+ products with a single stable image each (Unsplash CDN)
+  - Fallback image if any load fails
+  - Pincode-based ETA (simple rules)
+  - "Order Now" opens WhatsApp with product & price
+  - Responsive grid; copy this into index.html and open in browser
+  - Change WHATSAPP_NUMBER variable in the script if you want to use another number
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vishal Grocery — Home</title>
-  <meta name="description" content="Vishal Grocery Store — Paliganj. Order groceries online with pincode ETA & WhatsApp checkout." />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Vishal Grocery Store — Ready</title>
+  <meta name="description" content="Vishal Grocery — Paliganj. 30+ groceries with images, pincode ETA and WhatsApp order." />
+  <style>
+    :root{
+      --brand:#2a7a2e; --brand-dark:#1f5c22; --accent:#e63946;
+      --bg:#f7f8fb; --card:#fff; --muted:#6b7280;
+      --shadow: 0 8px 22px rgba(15,23,42,.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:#0f172a}
+    a{color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+    /* Topbar */
+    .topbar{background:var(--brand);color:#fff;position:sticky;top:0;z-index:50;box-shadow:var(--shadow)}
+    .topbar .container{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px}
+    .brand{font-weight:800;cursor:pointer;display:flex;gap:10px;align-items:center}
+    .brand .small{font-weight:600;font-size:.9rem;opacity:.95}
+    .navlinks{display:flex;align-items:center;gap:10px}
+    .navlinks a{color:#fff;text-decoration:none;font-weight:600}
+    .cart-btn{background:#ffffff18;border:0;color:#fff;padding:8px 10px;border-radius:8px;cursor:pointer}
+
+    /* Pincode strip */
+    .pin-strip{background:#fffae6;border-bottom:1px solid #f3e8c8}
+    .pin-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 16px;gap:12px;flex-wrap:wrap}
+    .pin-inner input{padding:8px 10px;border-radius:8px;border:1px solid #e6eef3;min-width:180px}
+    .btn{background:var(--brand);color:#fff;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .muted{color:var(--muted)}
+
+    /* hero */
+    .hero{max-width:1200px;margin:20px auto 10px;padding:0 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .hero-left{flex:1;min-width:260px}
+    .hero-left h1{margin:0 0 6px;font-size:1.5rem}
+    .hero-right{min-width:260px}
+    .search-wrap input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e6eef3}
+
+    /* filters */
+    .filters{display:flex;gap:8px;padding:10px 16px;max-width:1200px;margin:0 auto;flex-wrap:wrap}
+    .chip{background:#fff;border:1px solid #e6eef3;padding:8px 12px;border-radius:999px;cursor:pointer}
+    .chip.active{background:#eaf7ed;border-color:#cfead3;color:var(--brand);font-weight:700}
+
+    /* grid */
+    .grid-wrap{max-width:1200px;margin:12px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-height:320px}
+    .thumb{background:#f3f4f6;height:0;padding-bottom:72%;position:relative}
+    .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .card-body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .title{font-weight:800;font-size:1rem}
+    .unit{color:var(--muted);font-size:.9rem}
+    .price{font-weight:900;color:var(--accent);font-size:1.05rem}
+    .row{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:auto}
+    .qty{display:flex;align-items:center;gap:6px}
+    .qty button{border:1px solid #eef2f6;background:#fff;padding:6px 10px;border-radius:8px;cursor:pointer}
+    .add-btn{flex:1}
+
+    /* modal (product large view) */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+    .modal-card{background:#fff;border-radius:12px;max-width:900px;width:100%;box-shadow:var(--shadow);overflow:hidden}
+    .modal-body{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px}
+    .modal .mainimg{width:100%;border-radius:8px;overflow:hidden}
+    .modal .mainimg img{width:100%;height:auto;display:block}
+    .thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+    .thumb-mini{width:68px;height:68px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent}
+    .thumb-mini.active{border-color:var(--brand)}
+
+    /* footer & drawer */
+    .site-footer{background:#0b1220;color:#cbd5e1;padding:16px 0;margin-top:18px}
+    .foot-inner{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;justify-content:space-between;align-items:center}
+
+    /* responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+      .modal-body{grid-template-columns:1fr}
+    }
+
+    /* small helpers */
+    .eta{font-size:.9rem;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;padding:6px 8px;border-radius:8px;display:inline-block}
+    .ghost{background:#f8fafc;border:1px solid #e6eef3;color:#0f172a;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .chip-small{background:#fff;border:1px solid #e6eef3;padding:6px 8px;border-radius:8px;cursor:pointer}
+  </style>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar" role="banner">
     <div class="container">
-      <div class="brand" onclick="goPage('index.html')" role="button">🛒 Vishal Grocery <span class="small">Paliganj, Bihar</span></div>
-      <nav class="navlinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="orders.html">My Orders</a>
-        <button class="cart-toggle" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</button>
+      <div class="brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        🛒 Vishal Grocery <span class="small">Paliganj, Bihar</span>
+      </div>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Home</a>
+        <a href="#about" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">About</a>
+        <a href="#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</a>
+        <button class="cart-btn" onclick="openCartDrawer()">My Orders</button>
       </nav>
     </div>
   </header>
 
   <div class="pin-strip">
-    <div class="container pin-inner">
-      <div>
+    <div class="pin-inner">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
         <strong>📦 Delivery ETA</strong>
         <input id="pinInput" maxlength="6" placeholder="Enter 6-digit pincode" inputmode="numeric" />
         <button class="btn" onclick="savePincode()">Check</button>
@@ -37,7 +126,7 @@
     <section class="hero">
       <div class="hero-left">
         <h1>Fresh staples, fair prices, fast delivery</h1>
-        <p>50+ grocery items. Add to cart & place a single WhatsApp order. Pincode-based ETA like Flipkart.</p>
+        <p>30+ grocery essentials. Click "Order Now" to send a WhatsApp message with your product and quantity.</p>
       </div>
       <div class="hero-right">
         <div class="search-wrap">
@@ -46,67 +135,371 @@
       </div>
     </section>
 
-    <section class="filters">
+    <section class="filters" aria-label="Filters">
       <button class="chip active" data-cat="all" onclick="filterCategory('all', this)">All</button>
       <button class="chip" data-cat="staples" onclick="filterCategory('staples', this)">Staples</button>
       <button class="chip" data-cat="oils" onclick="filterCategory('oils', this)">Oils</button>
       <button class="chip" data-cat="pulses" onclick="filterCategory('pulses', this)">Pulses</button>
       <button class="chip" data-cat="beverages" onclick="filterCategory('beverages', this)">Beverages</button>
       <button class="chip" data-cat="homecare" onclick="filterCategory('homecare', this)">Home Care</button>
+      <button class="chip" data-cat="dairy" onclick="filterCategory('dairy', this)">Dairy</button>
+      <button class="chip" data-cat="snacks" onclick="filterCategory('snacks', this)">Snacks</button>
     </section>
 
-    <section>
+    <section class="grid-wrap" aria-live="polite">
       <h2>Products</h2>
-      <div id="productGrid" class="grid" aria-live="polite"></div>
+      <div id="productGrid" class="grid"></div>
+    </section>
+
+    <section id="about" style="margin-top:22px;">
+      <h2>About Vishal Grocery</h2>
+      <p>Vishal Grocery is your trusted local store in Paliganj, Bihar. We offer quality staples, household essentials and fast delivery. Order via WhatsApp for quick processing.</p>
+    </section>
+
+    <section id="contact" style="margin-top:22px;">
+      <h2>Contact</h2>
+      <p>📍 Paliganj, Bihar • 📞 <a href="tel:+916206364936">+91-6206364936</a> • 📧 <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a></p>
+      <p><button class="btn" onclick="window.open('https://wa.me/916206364936?text='+encodeURIComponent('Hi Vishal, I have a query'), '_blank')">Chat on WhatsApp</button></p>
     </section>
   </main>
 
-  <!-- Product Quick Modal -->
+  <!-- Product Modal (large view) -->
   <div id="productModal" class="modal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div style="padding:10px;text-align:right;"><button onclick="closeModal()" class="ghost">Close</button></div>
       <div class="modal-body">
-        <div class="gallery">
-          <img id="modalMainImg" src="" alt="Product image" />
-          <div id="modalThumbs" class="thumbs"></div>
+        <div>
+          <div class="mainimg"><img id="modalMain" src="" alt="Product image" onerror="this.src=fallbackImage"></div>
+          <div id="modalThumbs" class="thumb-row" style="margin-top:10px"></div>
         </div>
-        <div class="modal-info">
-          <h3 id="modalTitle"></h3>
-          <div id="modalUnit" class="muted"></div>
-          <div id="modalBrand" class="muted"></div>
-          <div class="price">₹<span id="modalPrice"></span></div>
-          <div id="modalEta" class="eta" style="display:none"></div>
-          <div class="modal-actions">
-            <div class="qty">
-              <button onclick="modalQty(-1)">−</button>
-              <span id="modalQty">1</span>
-              <button onclick="modalQty(1)">+</button>
+        <div>
+          <h3 id="modalName"></h3>
+          <div id="modalUnit" class="unit"></div>
+          <div style="margin:8px 0"><span class="price">₹<span id="modalPrice"></span></span></div>
+          <div id="modalEta" style="margin-bottom:8px"></div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="display:flex;gap:6px;align-items:center">
+              <button class="chip-small" onclick="modalQty(-1)">−</button>
+              <div id="modalQty" style="min-width:28px;text-align:center">1</div>
+              <button class="chip-small" onclick="modalQty(1)">+</button>
             </div>
-            <button class="btn" id="modalAddBtn">Add to Cart</button>
-            <button class="btn ghost" onclick="buyNowModal()">Buy Now</button>
+            <button class="btn" id="modalAdd" onclick="modalAddToCart()">Add to Cart</button>
+            <button class="btn ghost" onclick="modalBuyNow()">Order Now</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Cart Drawer -->
-  <aside id="cartDrawer" class="drawer" aria-hidden="true">
-    <header><strong>My Orders</strong><button class="chip" onclick="toggleCart()">Close</button></header>
-    <div id="cartList" class="cart-list"></div>
-    <footer>
-      <div class="total"><span>Total</span><span>₹<span id="cartTotal">0</span></span></div>
-      <button class="btn" onclick="checkout()">Checkout via WhatsApp</button>
-    </footer>
-  </aside>
+  <!-- Cart drawer (simple) -->
+  <div id="cartDrawer" style="position:fixed;right:0;top:0;height:100%;width:380px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .28s ease;z-index:70">
+    <div style="background:var(--brand);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+      <strong>My Orders</strong>
+      <button class="chip-small" onclick="closeCartDrawer()">Close</button>
+    </div>
+    <div id="cartList" style="padding:12px;overflow:auto;flex:1;height:calc(100% - 160px)"></div>
+    <div style="padding:12px;border-top:1px solid #f3f4f6">
+      <div style="display:flex;justify-content:space-between;font-weight:800;margin-bottom:8px">Total <span>₹<span id="cartTotal">0</span></span></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" style="flex:1" onclick="checkout()">Checkout via WhatsApp</button>
+        <button class="ghost" onclick="clearCart()">Clear</button>
+      </div>
+    </div>
+  </div>
 
   <footer class="site-footer">
-    <div class="container foot-inner">
-      <div>© <span id="year"></span> Vishal Grocery • Paliganj</div>
-      <div>📞 +91-6206364936 • 📧 vishalk785808@gmail.com</div>
+    <div class="foot-inner">
+      <div>© <span id="year"></span> Vishal Grocery</div>
+      <div>📞 +91-6206364936 • Paliganj, Bihar</div>
     </div>
   </footer>
 
-  <script src="scripts.js"></script>
+  <script>
+  /***********************
+   * CONFIG
+   ***********************/
+  const WHATSAPP_NUMBER = '916206364936'; // countrycode + number, no +
+  const fallbackImage = 'https://images.unsplash.com/photo-1586201375761-83865001b4e1?auto=format&fit=crop&w=800&q=60'; // generic grocery fallback
+  document.getElementById('year').innerText = new Date().getFullYear();
+
+  /***********************
+   * PRODUCTS (single image each) - stable Unsplash URLs
+   * 30 items. Replace or extend as needed.
+   ***********************/
+  const PRODUCTS = [
+    { id:'p1',  name:'Basmati Rice 5kg', unit:'5 kg', price:450, category:'staples', image:'https://images.unsplash.com/photo-1624216817230-129e481f8a05?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p2',  name:'Wheat Flour (Atta) 5kg', unit:'5 kg', price:250, category:'staples', image:'https://images.unsplash.com/photo-1556910103-1b232ddc0dad?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p3',  name:'Mustard Oil 1L', unit:'1 L', price:180, category:'oils', image:'https://images.unsplash.com/photo-1605474890464-0c22fe252f3f?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p4',  name:'Sugar 1kg', unit:'1 kg', price:45, category:'staples', image:'https://images.unsplash.com/photo-1613387853096-8f7ee814eea3?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p5',  name:'Tea Powder 500g', unit:'500 g', price:230, category:'beverages', image:'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p6',  name:'Salt 1kg', unit:'1 kg', price:25, category:'staples', image:'https://images.unsplash.com/photo-1580910051070-223f01295baf?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p7',  name:'Detergent Powder 1kg', unit:'1 kg', price:60, category:'homecare', image:'https://images.unsplash.com/photo-1598514982560-55cd9b1053a4?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p8',  name:'Toor Dal 1kg', unit:'1 kg', price:140, category:'pulses', image:'https://images.unsplash.com/photo-1587049352858-cf87316d4b84?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p9',  name:'Chana Dal 1kg', unit:'1 kg', price:110, category:'pulses', image:'https://images.unsplash.com/photo-1575998051224-bf6674f9429b?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p10', name:'Moong Dal 1kg', unit:'1 kg', price:130, category:'pulses', image:'https://images.unsplash.com/photo-1510590009275-207e7e4b0ea0?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p11', name:'Corn Flour 500g', unit:'500 g', price:90, category:'staples', image:'https://images.unsplash.com/photo-1568374646742-18e1b4c7bd33?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p12', name:'Refined Oil 1L', unit:'1 L', price:160, category:'oils', image:'https://images.unsplash.com/photo-1543353071-087092ec393f?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p13', name:'Ghee 500g', unit:'500 g', price:420, category:'staples', image:'https://images.unsplash.com/photo-1570197782946-4b2d2a7c3cb9?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p14', name:'Besan 1kg', unit:'1 kg', price:120, category:'staples', image:'https://images.unsplash.com/photo-1543332164-1b6f44d3b39a?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p15', name:'Soyabean Oil 1L', unit:'1 L', price:170, category:'oils', image:'https://images.unsplash.com/photo-1505577076686-aedb0e1f7f66?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p16', name:'Maida 1kg', unit:'1 kg', price:60, category:'staples', image:'https://images.unsplash.com/photo-1523800503107-5bc3ba2f3e6f?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p17', name:'Poha 500g', unit:'500 g', price:55, category:'staples', image:'https://images.unsplash.com/photo-1604908177522-4f3b3863e2ae?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p18', name:'Sooji 1kg', unit:'1 kg', price:95, category:'staples', image:'https://images.unsplash.com/photo-1617191517920-5a3b3d3c9b13?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p19', name:'Namkeen 200g', unit:'200 g', price:45, category:'snacks', image:'https://images.unsplash.com/photo-1601050690591-6f7caf5f89e1?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p20', name:'Biscuits 200g', unit:'200 g', price:40, category:'snacks', image:'https://images.unsplash.com/photo-1548800000-6c6b9d3ad3ef?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p21', name:'Cornflakes 250g', unit:'250 g', price:120, category:'breakfast', image:'https://images.unsplash.com/photo-1478144592103-25e218a04891?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p22', name:'Instant Coffee 100g', unit:'100 g', price:150, category:'beverages', image:'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p23', name:'Honey 500g', unit:'500 g', price:380, category:'staples', image:'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p24', name:'Jam 500g', unit:'500 g', price:190, category:'breakfast', image:'https://images.unsplash.com/photo-1547592166-0b6c06f4a8b2?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p25', name:'Masala 100g', unit:'100 g', price:80, category:'spices', image:'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p26', name:'Turmeric 200g', unit:'200 g', price:60, category:'spices', image:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p27', name:'Red Chilli 200g', unit:'200 g', price:70, category:'spices', image:'https://images.unsplash.com/photo-1604908177527-16b9d2a1b6d9?auto=format&fit=crop&w=900&q=80', eta:2 },
+    { id:'p28', name:'Cashews 200g', unit:'200 g', price:320, category:'dryfruit', image:'https://images.unsplash.com/photo-1571687949925-5d0b1b9f0b8b?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p29', name:'Almonds 200g', unit:'200 g', price:420, category:'dryfruit', image:'https://images.unsplash.com/photo-1571687949927-2b8c7f7f5e65?auto=format&fit=crop&w=900&q=80', eta:3 },
+    { id:'p30', name:'Milk (Tetra) 1L', unit:'1 L', price:60, category:'dairy', image:'https://images.unsplash.com/photo-1582719478250-1afc0f8d7d5b?auto=format&fit=crop&w=900&q=80', eta:1 }
+  ];
+
+  /***********************
+   * RENDERING
+   ***********************/
+  const productGrid = document.getElementById('productGrid');
+
+  function clearChildren(el){ while(el.firstChild) el.removeChild(el.firstChild); }
+
+  function renderProducts(){
+    clearChildren(productGrid);
+    const q = (document.getElementById('searchBox').value || '').trim().toLowerCase();
+    const filtered = PRODUCTS.filter(p=>{
+      const matchesCat = (activeCategory === 'all') || (p.category === activeCategory);
+      const matchesQ = !q || p.name.toLowerCase().includes(q) || (p.category && p.category.toLowerCase().includes(q));
+      return matchesCat && matchesQ;
+    });
+    if(filtered.length === 0){
+      productGrid.innerHTML = '<div style="grid-column:1/-1;padding:18px;background:#fff;border-radius:8px;text-align:center">No products found.</div>';
+      return;
+    }
+    filtered.forEach(p=>{
+      const card = document.createElement('div'); card.className = 'card';
+      card.innerHTML = `
+        <div class="thumb"><img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='${fallbackImage}'" /></div>
+        <div class="card-body">
+          <div>
+            <div class="title">${p.name}</div>
+            <div class="unit">${p.unit}</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+            <div class="price">₹${p.price}</div>
+            <div id="eta-${p.id}"></div>
+          </div>
+          <div class="row">
+            <div style="display:flex;align-items:center;gap:8px">
+              <button class="chip-small" onclick="decrQty(this)">−</button>
+              <div class="qval" style="min-width:22px;text-align:center">1</div>
+              <button class="chip-small" onclick="incrQty(this)">+</button>
+            </div>
+            <div style="display:flex;gap:6px">
+              <button class="btn" onclick='openModal("${p.id}")'>View</button>
+              <button class="ghost" onclick='orderNow("${p.id}", this)'>Order Now</button>
+            </div>
+          </div>
+        </div>
+      `;
+      productGrid.appendChild(card);
+      // show ETA if pincode set
+      const pin = localStorage.getItem('vg_pin');
+      const etaEl = document.getElementById(`eta-${p.id}`);
+      if(etaEl){
+        etaEl.innerHTML = pin ? `<span class="eta">Delivery by ${calcDeliveryDateText(p.eta, pin)}</span>` : '';
+      }
+    });
+  }
+
+  // quantity helpers
+  function incrQty(btn){ const q=btn.parentElement.querySelector('.qval'); q.innerText = Number(q.innerText)+1; }
+  function decrQty(btn){ const q=btn.parentElement.querySelector('.qval'); let v=Number(q.innerText)-1; if(v<1) v=1; q.innerText=v; }
+
+  /***********************
+   * MODAL (Product large view)
+   ***********************/
+  let currentModalProduct = null;
+  function openModal(id){
+    const p = PRODUCTS.find(x=>x.id===id); if(!p) return;
+    currentModalProduct = p;
+    document.getElementById('modalMain').src = p.image;
+    document.getElementById('modalName').innerText = p.name;
+    document.getElementById('modalUnit').innerText = p.unit;
+    document.getElementById('modalPrice').innerText = p.price;
+    document.getElementById('modalQty').innerText = 1;
+    const thumbs = document.getElementById('modalThumbs'); thumbs.innerHTML = '';
+    // Only single image used here (user wanted single good image per product).
+    // We still show it as the single thumb.
+    const img = document.createElement('img'); img.src = p.image; img.className='thumb-mini active'; img.onerror = ()=>img.src=fallbackImage;
+    img.onclick = ()=>{ document.getElementById('modalMain').src = img.src; document.querySelectorAll('.thumb-mini').forEach(t=>t.classList.remove('active')); img.classList.add('active'); };
+    thumbs.appendChild(img);
+    // ETA
+    const pin = localStorage.getItem('vg_pin');
+    document.getElementById('modalEta').innerText = pin ? 'Expected delivery: ' + calcDeliveryDateText(p.eta, pin) : '';
+    document.getElementById('productModal').style.display = 'flex';
+    document.getElementById('productModal').setAttribute('aria-hidden','false');
+  }
+  function closeModal(){ document.getElementById('productModal').style.display = 'none'; document.getElementById('productModal').setAttribute('aria-hidden','true'); currentModalProduct=null; }
+  function modalQty(delta){ const el=document.getElementById('modalQty'); let v=Number(el.innerText)+delta; if(v<1) v=1; el.innerText=v; }
+  function modalAddToCart(){
+    // add to localStorage cart
+    const qty = Number(document.getElementById('modalQty').innerText || 1);
+    addToCart(currentModalProduct, qty);
+    closeModal();
+  }
+  function modalBuyNow(){
+    const qty = Number(document.getElementById('modalQty').innerText || 1);
+    const message = `Hello Vishal, I want to order: ${currentModalProduct.name} (${currentModalProduct.unit}) x ${qty} — ₹${currentModalProduct.price * qty}`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+  }
+
+  /***********************
+   * PINCODE / ETA logic
+   ***********************/
+  function savePincode(){
+    const pin = (document.getElementById('pinInput').value||'').trim();
+    if(!/^\d{6}$/.test(pin)){ alert('Enter a valid 6-digit pincode'); return; }
+    localStorage.setItem('vg_pin', pin);
+    document.getElementById('pinMsg').innerText = 'Pincode saved. Delivery dates updated.';
+    // update eta labels
+    PRODUCTS.forEach(p=>{
+      const el = document.getElementById(`eta-${p.id}`);
+      if(el) el.innerHTML = ` <span class="eta">Delivery by ${calcDeliveryDateText(p.eta, pin)}</span>`;
+    });
+  }
+
+  function calcDeliveryDateText(baseDays, pin){
+    // Simple rules:
+    // - If pin starts with '80' or '82' treat as near (2 days)
+    // - If pin starts with '8' treat as Bihar-other (+1)
+    // - Else distant: +3
+    let prefix = pin ? pin.slice(0,2) : '';
+    let add = 0;
+    if(!pin) add = 3; // unknown area => conservative
+    else if(prefix === '80' || prefix === '82') add = 0;
+    else if(pin.startsWith('8')) add = 1;
+    else add = 3;
+    const days = baseDays + add;
+    const d = new Date(); d.setDate(d.getDate() + days);
+    const opt = { weekday:'short', month:'short', day:'numeric' };
+    return d.toLocaleDateString('en-IN', opt);
+  }
+
+  /***********************
+   * ORDER NOW (single product) & CART (simple)
+   ***********************/
+  function orderNow(id, btn){
+    // find qty on the card
+    const card = btn.closest('.card');
+    const qEl = card.querySelector('.qval');
+    const qty = Number(qEl ? qEl.innerText : 1);
+    const p = PRODUCTS.find(x=>x.id===id);
+    if(!p) return;
+    const message = `Hello Vishal, I want to order: ${p.name} (${p.unit}) x ${qty} — ₹${p.price * qty}`;
+    const pin = localStorage.getItem('vg_pin');
+    const finalMsg = pin ? message + `\nPincode: ${pin}` : message;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(finalMsg)}`, '_blank');
+  }
+
+  // CART (simple localStorage, visible in drawer)
+  function getCart(){ try{ return JSON.parse(localStorage.getItem('vg_cart')||'[]') }catch(e){ return [] } }
+  function saveCart(c){ localStorage.setItem('vg_cart', JSON.stringify(c)); renderCart(); }
+  function addToCart(product, qty=1){
+    if(!product) return;
+    const cart = getCart();
+    const found = cart.find(i=>i.id===product.id);
+    if(found) found.qty += qty; else cart.push({ id:product.id, name:product.name, price:product.price, qty:qty, image:product.image });
+    saveCart(cart);
+    alert(`${product.name} added to cart`);
+  }
+  function renderCart(){
+    const list = document.getElementById('cartList');
+    list.innerHTML = '';
+    const cart = getCart();
+    if(!cart.length){ list.innerHTML = '<div class="muted">Your cart is empty.</div>'; document.getElementById('cartTotal').innerText = '0'; return; }
+    let total = 0;
+    cart.forEach((it, idx)=>{
+      total += it.price * it.qty;
+      const row = document.createElement('div'); row.style.display='grid'; row.style.gridTemplateColumns='56px 1fr auto'; row.style.gap='8px'; row.style.alignItems='center'; row.style.padding='8px 0'; row.style.borderBottom='1px solid #f3f4f6';
+      row.innerHTML = `<img src="${it.image}" style="width:56px;height:56px;object-fit:cover;border-radius:8px" onerror="this.src='${fallbackImage}'"/>
+        <div>
+          <div style="font-weight:700">${it.name}</div>
+          <div class="muted">${it.qty} × ₹${it.price}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <div><button class="chip-small" onclick="changeQty(${idx},1)">+</button> <button class="chip-small" onclick="changeQty(${idx},-1)">−</button></div>
+          <div><button class="chip-small" onclick="removeCartItem(${idx})">Remove</button></div>
+        </div>`;
+      list.appendChild(row);
+    });
+    document.getElementById('cartTotal').innerText = total;
+  }
+  function openCartDrawer(){ document.getElementById('cartDrawer').style.transform = 'translateX(0)'; renderCart(); }
+  function closeCartDrawer(){ document.getElementById('cartDrawer').style.transform = 'translateX(100%)'; }
+  function changeQty(index, delta){
+    const cart = getCart(); if(!cart[index]) return; cart[index].qty += delta; if(cart[index].qty < 1) cart.splice(index,1); saveCart(cart);
+  }
+  function removeCartItem(index){ const cart = getCart(); if(!cart[index]) return; cart.splice(index,1); saveCart(cart); }
+  function clearCart(){ if(confirm('Clear cart?')){ saveCart([]); } }
+
+  function checkout(){
+    const cart = getCart();
+    if(!cart.length){ alert('Cart is empty!'); return; }
+    let total = 0; let msg = 'Hello Vishal, I want to order:\\n';
+    cart.forEach(it=>{ msg += `${it.name} — ${it.qty} x ₹${it.price} = ₹${it.qty*it.price}\\n`; total += it.qty*it.price; });
+    msg += `Total: ₹${total}\\n`;
+    const pin = localStorage.getItem('vg_pin'); if(pin) msg += `Pincode: ${pin}\\n`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  /***********************
+   * FILTER + INIT
+   ***********************/
+  let activeCategory = 'all';
+  function filterCategory(cat, btn){
+    activeCategory = cat;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    btn.classList.add('active');
+    renderProducts();
+  }
+
+  // initial render
+  window.addEventListener('load', ()=>{
+    renderProducts();
+    renderCart();
+    // restore pin msg if set
+    const pin = localStorage.getItem('vg_pin');
+    if(pin) document.getElementById('pinMsg').innerText = 'Pincode saved. Delivery dates updated.';
+  });
+
+  // small helpers for cross-usage
+  function incrModalQty(){ modalQty(1); }
+  function decrModalQty(){ modalQty(-1); }
+
+  // expose a few functions for HTML inline handlers
+  window.filterCategory = filterCategory;
+  window.renderProducts = renderProducts;
+  window.incrQty = incrQty;
+  window.decrQty = decrQty;
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.modalQty = modalQty;
+  window.modalAddToCart = modalAddToCart;
+  window.modalBuyNow = modalBuyNow;
+  window.savePincode = savePincode;
+  window.calcDeliveryDateText = calcDeliveryDateText;
+  window.orderNow = orderNow;
+  window.addToCart = addToCart;
+  window.openCartDrawer = openCartDrawer;
+  window.closeCartDrawer = closeCartDrawer;
+  window.clearCart = clearCart;
+  window.checkout = checkout;
+  window.changeQty = changeQty;
+  window.removeCartItem = removeCartItem;
+  </script>
 </body>
 </html>
+```0
