@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Orders — Vishal Grocery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand" onclick="goPage('index.html')">🛒 Vishal Grocery</div>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">My Orders</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h1>My Orders (Cart)</h1>
+      <div id="ordersList"></div>
+      <div class="muted">Cart persists only in this browser (localStorage).</div>
+      <div style="margin-top:12px">
+        <button class="btn" onclick="goPage('index.html')">Continue shopping</button>
+        <button class="btn" onclick="checkout()">Checkout via WhatsApp</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container foot-inner">
+      <div>© <span id="year4"></span> Vishal Grocery</div>
+    </div>
+  </footer>
+
+  <script src="scripts.js"></script>
+  <script>
+    document.getElementById('year4').innerText = new Date().getFullYear();
+    function goPage(p){ location.href = p; }
+    // populate ordersList from cart
+    function renderOrdersPage(){
+      const cart = getCart();
+      const out = document.getElementById('ordersList');
+      if(!cart.length){ out.innerHTML = '<div class="muted">Your cart is empty.</div>'; return; }
+      out.innerHTML = '';
+      cart.forEach((it, i) => {
+        const div = document.createElement('div');
+        div.className = 'order-row';
+        div.innerHTML = `<strong>${it.name}</strong> • ${it.qty} × ₹${it.price} <button onclick="removeItem(${i})" class="chip">Remove</button>`;
+        out.appendChild(div);
+      });
+    }
+    renderOrdersPage();
+  </script>
+</body>
+</html>

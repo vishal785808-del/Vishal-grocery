@@ -1,178 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vishal Grocery Store</title>
-<style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
-    header { background: #2a7a2e; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    header nav a { color: white; text-decoration: none; margin: 5px 10px; font-weight: bold; }
-    header nav a:hover { text-decoration: underline; }
-
-    .delivery-note { text-align: center; font-size: 1em; background: #fffae6; padding: 10px; color: #333; }
-
-    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; padding: 20px; max-width: 1200px; margin: auto; }
-    .product { background: white; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 0 8px rgba(0,0,0,0.1); transition: 0.3s ease; }
-    .product:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); }
-    .product img { max-width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
-    .price { font-weight: bold; color: #e63946; margin-top: 5px; }
-    button { background: #2a7a2e; color: white; border: none; padding: 8px 12px; margin-top: 10px; cursor: pointer; border-radius: 5px; }
-    button:hover { background: #256624; }
-
-    section { padding: 20px; max-width: 1000px; margin: auto; }
-
-    /* Cart modal */
-    #cartModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
-    #cartModalContent { background: white; padding: 20px; border-radius: 8px; max-width: 500px; width: 90%; }
-    #cartModalContent h2 { margin-top: 0; }
-    #cartItems { max-height: 300px; overflow-y: auto; margin-bottom: 10px; }
-    .cart-item { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .closeBtn { background: red; color: white; float: right; padding: 5px 10px; cursor: pointer; border-radius: 5px; border: none; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vishal Grocery — Home</title>
+  <meta name="description" content="Vishal Grocery Store — Paliganj. Order groceries online with pincode ETA & WhatsApp checkout." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<header>
-    <div>🛒 Vishal Grocery Store</div>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a href="#" onclick="openCart()">My Orders 🛍️</a>
-    </nav>
-</header>
-
-<div class="delivery-note">📦 Delivery within 7 Days | Offline & Online Orders Accepted</div>
-
-<section id="home" class="products">
-    <!-- Products -->
-    <div class="product" data-name="Basmati Rice 5kg" data-price="450">
-        <img src="https://m.media-amazon.com/images/I/71lQGf5hLpL._SX679_.jpg" alt="Basmati Rice">
-        <h3>Basmati Rice 5kg</h3>
-        <div class="price">₹450</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand" onclick="goPage('index.html')" role="button">🛒 Vishal Grocery <span class="small">Paliganj, Bihar</span></div>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="orders.html">My Orders</a>
+        <button class="cart-toggle" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</button>
+      </nav>
     </div>
-    <div class="product" data-name="Wheat Flour 5kg" data-price="250">
-        <img src="https://m.media-amazon.com/images/I/81x4v4rKQML._SX679_.jpg" alt="Wheat Flour">
-        <h3>Wheat Flour 5kg</h3>
-        <div class="price">₹250</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
+  </header>
+
+  <div class="pin-strip">
+    <div class="container pin-inner">
+      <div>
+        <strong>📦 Delivery ETA</strong>
+        <input id="pinInput" maxlength="6" placeholder="Enter 6-digit pincode" inputmode="numeric" />
+        <button class="btn" onclick="savePincode()">Check</button>
+        <span id="pinMsg" class="muted">Enter pincode to see delivery date</span>
+      </div>
+      <div class="muted">Open 8am–9pm • Free delivery on ₹799+</div>
     </div>
-    <div class="product" data-name="Mustard Oil 1L" data-price="180">
-        <img src="https://m.media-amazon.com/images/I/71lZw5GR7sL._SX679_.jpg" alt="Mustard Oil">
-        <h3>Mustard Oil 1L</h3>
-        <div class="price">₹180</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Fresh staples, fair prices, fast delivery</h1>
+        <p>50+ grocery items. Add to cart & place a single WhatsApp order. Pincode-based ETA like Flipkart.</p>
+      </div>
+      <div class="hero-right">
+        <div class="search-wrap">
+          <input id="searchBox" placeholder="Search products (e.g., basmati, tea)" oninput="renderProducts()" />
+        </div>
+      </div>
+    </section>
+
+    <section class="filters">
+      <button class="chip active" data-cat="all" onclick="filterCategory('all', this)">All</button>
+      <button class="chip" data-cat="staples" onclick="filterCategory('staples', this)">Staples</button>
+      <button class="chip" data-cat="oils" onclick="filterCategory('oils', this)">Oils</button>
+      <button class="chip" data-cat="pulses" onclick="filterCategory('pulses', this)">Pulses</button>
+      <button class="chip" data-cat="beverages" onclick="filterCategory('beverages', this)">Beverages</button>
+      <button class="chip" data-cat="homecare" onclick="filterCategory('homecare', this)">Home Care</button>
+    </section>
+
+    <section>
+      <h2>Products</h2>
+      <div id="productGrid" class="grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Product Quick Modal -->
+  <div id="productModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body">
+        <div class="gallery">
+          <img id="modalMainImg" src="" alt="Product image" />
+          <div id="modalThumbs" class="thumbs"></div>
+        </div>
+        <div class="modal-info">
+          <h3 id="modalTitle"></h3>
+          <div id="modalUnit" class="muted"></div>
+          <div id="modalBrand" class="muted"></div>
+          <div class="price">₹<span id="modalPrice"></span></div>
+          <div id="modalEta" class="eta" style="display:none"></div>
+          <div class="modal-actions">
+            <div class="qty">
+              <button onclick="modalQty(-1)">−</button>
+              <span id="modalQty">1</span>
+              <button onclick="modalQty(1)">+</button>
+            </div>
+            <button class="btn" id="modalAddBtn">Add to Cart</button>
+            <button class="btn ghost" onclick="buyNowModal()">Buy Now</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="product" data-name="Sugar 1kg" data-price="45">
-        <img src="https://m.media-amazon.com/images/I/71d6EJxZ5uL._SX679_.jpg" alt="Sugar">
-        <h3>Sugar 1kg</h3>
-        <div class="price">₹45</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
+  </div>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="drawer" aria-hidden="true">
+    <header><strong>My Orders</strong><button class="chip" onclick="toggleCart()">Close</button></header>
+    <div id="cartList" class="cart-list"></div>
+    <footer>
+      <div class="total"><span>Total</span><span>₹<span id="cartTotal">0</span></span></div>
+      <button class="btn" onclick="checkout()">Checkout via WhatsApp</button>
+    </footer>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="container foot-inner">
+      <div>© <span id="year"></span> Vishal Grocery • Paliganj</div>
+      <div>📞 +91-6206364936 • 📧 vishalk785808@gmail.com</div>
     </div>
-    <div class="product" data-name="Tea Powder 500g" data-price="230">
-        <img src="https://m.media-amazon.com/images/I/71p2xdoDgpL._SX679_.jpg" alt="Tea Powder">
-        <h3>Tea Powder 500g</h3>
-        <div class="price">₹230</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Salt 1kg" data-price="25">
-        <img src="https://m.media-amazon.com/images/I/71hPYysFG-L._SX679_.jpg" alt="Salt">
-        <h3>Salt 1kg</h3>
-        <div class="price">₹25</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Detergent Powder 1kg" data-price="60">
-        <img src="https://m.media-amazon.com/images/I/91jU8RZpn8L._SX679_.jpg" alt="Detergent Powder">
-        <h3>Detergent Powder 1kg</h3>
-        <div class="price">₹60</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-    <div class="product" data-name="Toor Dal 1kg" data-price="140">
-        <img src="https://m.media-amazon.com/images/I/81Zuh3Bt2WL._SX679_.jpg" alt="Toor Dal">
-        <h3>Toor Dal 1kg</h3>
-        <div class="price">₹140</div>
-        <button onclick="addToCart(this)">Add to Cart</button>
-    </div>
-</section>
+  </footer>
 
-<section id="about">
-    <h2>About Vishal Grocery Store</h2>
-    <p>Vishal Grocery Store is your trusted local grocery shop in Paliganj, Bihar. We offer high-quality rice, flour, spices, oils, and daily essentials at affordable prices. You can order online or visit us in person!</p>
-</section>
-
-<section id="contact">
-    <h2>Contact Us</h2>
-    <p>📍 Paliganj, Bihar</p>
-    <p>📞 +91-6206364936</p>
-    <p>📧 vishalk785808@gmail.com</p>
-</section>
-
-<!-- Cart Modal -->
-<div id="cartModal">
-    <div id="cartModalContent">
-        <button class="closeBtn" onclick="closeCart()">X</button>
-        <h2>My Cart</h2>
-        <div id="cartItems"></div>
-        <div><strong>Total: ₹<span id="cartTotal">0</span></strong></div>
-        <button onclick="checkout()">Checkout via WhatsApp</button>
-    </div>
-</div>
-
-<footer>
-    📍 Paliganj, Bihar | 📞 +91-6206364936 | 📧 vishalk785808@gmail.com
-</footer>
-
-<script>
-let cart = [];
-
-function addToCart(button) {
-    const productDiv = button.parentElement;
-    const name = productDiv.getAttribute('data-name');
-    const price = parseInt(productDiv.getAttribute('data-price'));
-    cart.push({ name, price });
-    alert(name + " added to cart!");
-    updateCartDisplay();
-}
-
-function updateCartDisplay() {
-    const cartItems = document.getElementById('cartItems');
-    cartItems.innerHTML = '';
-    let total = 0;
-    cart.forEach((item, index) => {
-        total += item.price;
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `${item.name} - ₹${item.price} <button onclick="removeItem(${index})">Remove</button>`;
-        cartItems.appendChild(div);
-    });
-    document.getElementById('cartTotal').innerText = total;
-}
-
-function removeItem(index) {
-    cart.splice(index, 1);
-    updateCartDisplay();
-}
-
-function openCart() {
-    document.getElementById('cartModal').style.display = 'flex';
-}
-
-function closeCart() {
-    document.getElementById('cartModal').style.display = 'none';
-}
-
-function checkout() {
-    if(cart.length === 0) { alert('Cart is empty!'); return; }
-    let message = "Hello Vishal, I want to order:\n";
-    cart.forEach(item => {
-        message += `${item.name} - ₹${item.price}\n`;
-    });
-    message += `Total: ₹${cart.reduce((sum, i) => sum + i.price, 0)}`;
-    window.open(`https://wa.me/916206364936?text=${encodeURIComponent(message)}`, '_blank');
-}
-</script>
-
+  <script src="scripts.js"></script>
 </body>
 </html>
