@@ -1,112 +1,409 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vishal Grocery — Home</title>
-  <meta name="description" content="Vishal Grocery Store — Paliganj. Order groceries online with pincode ETA & WhatsApp checkout." />
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vishal Shop — Plastic Household Store (Paliganj)</title>
+  <meta name="description" content="Vishal Shop — Plastic household items in Paliganj (PIN 801110). Offline & online orders accepted. Delivery within 7 days. Secure payments via Razorpay." />
+  <style>
+    :root{ --bg:#f6f8fb; --card:#ffffff; --ink:#0f172a; --muted:#556070; --brand:#0f9d58; --accent:#ff7a00; --line:#e6eef3; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;background:var(--bg);color:var(--ink)}
+    a{color:#0284c7;text-decoration:none}
+    header{background:var(--brand);color:#fff;position:sticky;top:0;z-index:40}
+    .wrap{max-width:1100px;margin:auto;padding:14px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{font-weight:800;letter-spacing:.3px}
+    nav a{color:#fff;padding:8px 10px;border-radius:8px}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-top:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
+    .chips{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{background:#ecfdf5;border:1px solid #bbf7d0;padding:6px 10px;border-radius:999px;font-size:13px;color:#065f46}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .product{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+    .product img{width:100%;height:170px;object-fit:cover;display:block;background:#f3f4f6}
+    .pbody{padding:10px}
+    .pname{font-weight:800;color:#064e3b;margin:0 0 6px}
+    .price{font-weight:800;color:var(--brand);margin:0 0 6px}
+    .pfoot{display:flex;gap:8px;align-items:center;justify-content:space-between}
+    .btn{background:var(--brand);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+    .note{color:var(--muted);font-size:14px}
+    .small{font-size:13px;color:var(--muted)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .hidden{display:none}
+    footer{margin-top:24px;padding:20px 12px;background:#0b1220;color:#cbd5e1}
+    .center{display:flex;justify-content:center}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="container">
-      <div class="brand" onclick="goPage('index.html')" role="button">🛒 Vishal Grocery <span class="small">Paliganj, Bihar</span></div>
-      <nav class="navlinks">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="orders.html">My Orders</a>
-        <button class="cart-toggle" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</button>
+  <header>
+    <div class="wrap nav">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="brand">Vishal Shop</div>
+        <div class="small" style="color:#dbeadf">Plastic Household Items • Paliganj (801110)</div>
+      </div>
+      <nav>
+        <a href="#home" onclick="showSection('home')">Home</a>
+        <a href="#products" onclick="showSection('products')">Products</a>
+        <a href="#orders" onclick="showSection('orders')">My Orders</a>
+        <a href="#about" onclick="showSection('about')">About</a>
+        <a href="#contact" onclick="showSection('contact')">Contact</a>
+        <a href="#policies" onclick="showSection('policies')">Policies</a>
+        <a href="#cart" onclick="showSection('cart')">Cart (<span id="cartCount">0</span>)</a>
       </nav>
     </div>
-  </header>
-
-  <div class="pin-strip">
-    <div class="container pin-inner">
-      <div>
-        <strong>📦 Delivery ETA</strong>
-        <input id="pinInput" maxlength="6" placeholder="Enter 6-digit pincode" inputmode="numeric" />
-        <button class="btn" onclick="savePincode()">Check</button>
-        <span id="pinMsg" class="muted">Enter pincode to see delivery date</span>
-      </div>
-      <div class="muted">Open 8am–9pm • Free delivery on ₹799+</div>
-    </div>
-  </div>
-
-  <main class="container">
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Fresh staples, fair prices, fast delivery</h1>
-        <p>50+ grocery items. Add to cart & place a single WhatsApp order. Pincode-based ETA like Flipkart.</p>
-      </div>
-      <div class="hero-right">
-        <div class="search-wrap">
-          <input id="searchBox" placeholder="Search products (e.g., basmati, tea)" oninput="renderProducts()" />
-        </div>
-      </div>
-    </section>
-
-    <section class="filters">
-      <button class="chip active" data-cat="all" onclick="filterCategory('all', this)">All</button>
-      <button class="chip" data-cat="staples" onclick="filterCategory('staples', this)">Staples</button>
-      <button class="chip" data-cat="oils" onclick="filterCategory('oils', this)">Oils</button>
-      <button class="chip" data-cat="pulses" onclick="filterCategory('pulses', this)">Pulses</button>
-      <button class="chip" data-cat="beverages" onclick="filterCategory('beverages', this)">Beverages</button>
-      <button class="chip" data-cat="homecare" onclick="filterCategory('homecare', this)">Home Care</button>
-    </section>
-
-    <section>
-      <h2>Products</h2>
-      <div id="productGrid" class="grid" aria-live="polite"></div>
-    </section>
-  </main>
-
-  <!-- Product Quick Modal -->
-  <div id="productModal" class="modal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div class="modal-body">
-        <div class="gallery">
-          <img id="modalMainImg" src="" alt="Product image" />
-          <div id="modalThumbs" class="thumbs"></div>
-        </div>
-        <div class="modal-info">
-          <h3 id="modalTitle"></h3>
-          <div id="modalUnit" class="muted"></div>
-          <div id="modalBrand" class="muted"></div>
-          <div class="price">₹<span id="modalPrice"></span></div>
-          <div id="modalEta" class="eta" style="display:none"></div>
-          <div class="modal-actions">
-            <div class="qty">
-              <button onclick="modalQty(-1)">−</button>
-              <span id="modalQty">1</span>
-              <button onclick="modalQty(1)">+</button>
+  </header>  <main class="wrap">
+    <!-- HOME -->
+    <section id="home" class="section">
+      <div class="hero">
+        <div>
+          <div class="card">
+            <h1 style="margin:0">Welcome to Vishal Shop</h1>
+            <p class="note">Plastic household goods — buckets, bottles, containers, lunch boxes, dustbins, stools, trays and more. <strong>Delivery within 7 days</strong>. Pay via UPI/Cards/Netbanking/Amazon Pay (Razorpay checkout).</p>
+            <div class="chips" style="margin-top:8px">
+              <span class="chip">Offline & Online Orders</span>
+              <span class="chip">Delivery: 7 days</span>
+              <span class="chip">Secure Payments</span>
             </div>
-            <button class="btn" id="modalAddBtn">Add to Cart</button>
-            <button class="btn ghost" onclick="buyNowModal()">Buy Now</button>
+          </div>
+          <div class="card">
+            <h3 style="margin:0 0 8px">Featured Products</h3>
+            <div class="products" id="featured"></div>
           </div>
         </div>
+        <aside style="width:100%;max-width:360px">
+          <div class="card">
+            <h3 style="margin:0 0 6px">My Cart</h3>
+            <div class="small">Items: <strong id="cartCountSidebar">0</strong></div>
+            <ul id="cartList" style="list-style:none;padding:0;margin:8px 0"></ul>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong>Total: ₹<span id="cartTotal">0</span></strong></div>
+              <div style="display:flex;gap:8px">
+                <button class="btn ghost" onclick="openWhatsAppOrder()">WhatsApp</button>
+                <button class="btn" onclick="openRazorpay()">Order Now</button>
+              </div>
+            </div>
+            <p class="small" style="margin-top:8px">Payment methods: UPI, Cards, Netbanking, Amazon Pay (via Razorpay)</p>
+          </div><div class="card" style="margin-top:12px">
+        <h4 style="margin:0 0 8px">Quick Contact</h4>
+        <div class="small">Phone: <a href="tel:+916206364936">+91 6206364936</a></div>
+        <div class="small">WhatsApp: <a href="https://wa.me/916206364936?text=Hi%20Vishal%20Shop">Message</a></div>
+        <div class="small">Email: <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a></div>
+        <div class="small">Address: Near Jio Tower, Paliganj — 801110</div>
       </div>
+    </aside>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section hidden">
+  <div class="card" style="margin-bottom:12px">
+    <h2 style="margin:0 0 6px">All Products</h2>
+    <p class="note" style="margin:6px 0 0">Prices are inclusive of taxes. Final billing shared on invoice. Images are placeholders — upload your own images with the same names to replace automatically.</p>
+  </div>
+  <div class="products" id="productGrid"></div>
+</section>
+
+<!-- CART PAGE -->
+<section id="cart" class="section hidden card">
+  <h2 style="margin:0 0 10px">My Cart</h2>
+  <ul id="cartPageList" style="padding:0;margin:0 0 10px 0;list-style:none"></ul>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div>Total: <strong>₹<span id="cartPageTotal">0</span></strong></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn ghost" onclick="openWhatsAppOrder()">WhatsApp Order</button>
+      <button class="btn" onclick="openRazorpay()">Pay Online</button>
     </div>
   </div>
+</section>
 
-  <!-- Cart Drawer -->
-  <aside id="cartDrawer" class="drawer" aria-hidden="true">
-    <header><strong>My Orders</strong><button class="chip" onclick="toggleCart()">Close</button></header>
-    <div id="cartList" class="cart-list"></div>
-    <footer>
-      <div class="total"><span>Total</span><span>₹<span id="cartTotal">0</span></span></div>
-      <button class="btn" onclick="checkout()">Checkout via WhatsApp</button>
-    </footer>
-  </aside>
+<!-- ORDERS -->
+<section id="orders" class="section hidden card">
+  <h2>My Orders</h2>
+  <div id="ordersWrap" class="small">No orders yet.</div>
+</section>
 
-  <footer class="site-footer">
-    <div class="container foot-inner">
-      <div>© <span id="year"></span> Vishal Grocery • Paliganj</div>
-      <div>📞 +91-6206364936 • 📧 vishalk785808@gmail.com</div>
+<!-- ABOUT -->
+<section id="about" class="section hidden card">
+  <h2>About Us</h2>
+  <p class="small">Vishal Shop is a plastic household items retailer based in Paliganj. We accept both offline and online orders and deliver within 7 working days. This website lists our popular products and enables secure online payments through Razorpay.</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section hidden card">
+  <h2>Contact</h2>
+  <p class="small"><strong>Shop Name:</strong> Vishal Shop</p>
+  <p class="small"><strong>Address:</strong> Near Jio Tower, Paliganj — 801110</p>
+  <p class="small"><strong>Phone:</strong> <a href="tel:+916206364936">+91 6206364936</a></p>
+  <p class="small"><strong>Email:</strong> <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a></p>
+  <p class="small">For bulk orders, message us on WhatsApp.</p>
+</section>
+
+<!-- POLICIES -->
+<section id="policies" class="section hidden card">
+  <h2>Policies — Delivery / Returns / Refund / Cancellation / Privacy</h2>
+  <details open>
+    <summary>Delivery Policy</summary>
+    <div class="small" style="margin-top:8px">
+      Orders are processed within 1–3 business days and delivered typically within <strong>7 working days</strong> depending on area and courier availability. Delivery charges (if any) will be informed before confirmation.
     </div>
-  </footer>
+  </details>
+  <details>
+    <summary>Returns & Refunds</summary>
+    <div class="small" style="margin-top:8px">
+      Non-defective, unused items in original condition can be returned within <strong>7 days</strong> with invoice. Refunds for online payments are processed to the original method (via Razorpay) within 3–7 business days after inspection.
+    </div>
+  </details>
+  <details>
+    <summary>Cancellation Policy</summary>
+    <div class="small" style="margin-top:8px">
+      Orders can be cancelled before dispatch. Once dispatched, cancellation may not be possible. You may raise a return request after delivery subject to return policy.
+    </div>
+  </details>
+  <details>
+    <summary>Privacy & Terms</summary>
+    <div class="small" style="margin-top:8px">
+      We collect basic contact and delivery information only for fulfilling orders. We do not sell your data. By ordering you agree to our terms. Governing law: India.
+    </div>
+  </details>
+</section>
 
-  <script src="scripts.js"></script>
-</body>
+  </main>  <footer>
+    <div class="wrap center" style="flex-direction:column;gap:6px">
+      <div>© <span id="yr"></span> Vishal Shop — Paliganj (801110)</div>
+      <div class="small">Email: <a href="mailto:vishalk785808@gmail.com">vishalk785808@gmail.com</a> • Phone: <a href="tel:+916206364936">+91 6206364936</a></div>
+    </div>
+  </footer>  <!-- Razorpay Checkout -->  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>  <script>
+    // ====== CONFIG ======
+    const BUSINESS = {
+      name: 'Vishal Shop',
+      phone: '916206364936',
+      whatsapp: '916206364936',
+      email: 'vishalk785808@gmail.com',
+      address: 'Near Jio Tower, Paliganj — 801110'
+    };
+
+    // 20 Plastic Products (use your own photos by uploading files with these names)
+    // If an image is missing, a clean placeholder SVG will be shown automatically.
+    const PRODUCTS = [
+      {id:1,  name:'Plastic Bucket 18L (with handle)',         price: 299, img:'bucket-18l.jpg'},
+      {id:2,  name:'Plastic Bucket 25L (heavy duty)',          price: 449, img:'bucket-25l.jpg'},
+      {id:3,  name:'Plastic Mug (Set of 6)',                   price: 159, img:'mug-set-6.jpg'},
+      {id:4,  name:'Storage Container 2L (Airtight)',          price: 179, img:'container-2l.jpg'},
+      {id:5,  name:'Storage Container 5L (Airtight)',          price: 299, img:'container-5l.jpg'},
+      {id:6,  name:'Lunch Box 3-tier (Steel inside)',          price: 369, img:'lunchbox-3tier.jpg'},
+      {id:7,  name:'Water Bottle 1L (BPA-free)',               price: 129, img:'bottle-1l.jpg'},
+      {id:8,  name:'Water Bottle 2L (BPA-free)',               price: 199, img:'bottle-2l.jpg'},
+      {id:9,  name:'Dustbin 12L (swing lid)',                  price: 349, img:'dustbin-12l.jpg'},
+      {id:10, name:'Multi-purpose Basket (large)',             price: 199, img:'basket-large.jpg'},
+      {id:11, name:'Plastic Stool (small)',                    price: 399, img:'stool-small.jpg'},
+      {id:12, name:'Plastic Chair (armrest)',                  price: 799, img:'chair-arm.jpg'},
+      {id:13, name:'Soap Box (flip lid)',                      price: 69,  img:'soapbox.jpg'},
+      {id:14, name:'Drawer Organizer (small)',                 price: 499, img:'drawer-small.jpg'},
+      {id:15, name:'Hanger Set (12 pcs)',                      price: 149, img:'hanger-set-12.jpg'},
+      {id:16, name:'Washing Tub 40L (round)',                  price: 549, img:'tub-40l.jpg'},
+      {id:17, name:'Kitchen Colander (strainer)',              price: 129, img:'colander.jpg'},
+      {id:18, name:'Plate Set (6 pcs, unbreakable)',           price: 299, img:'plate-set-6.jpg'},
+      {id:19, name:'Spoon Set (12 pcs)',                       price: 149, img:'spoon-set-12.jpg'},
+      {id:20, name:'Container Set (3 pcs, airtight)',          price: 349, img:'container-set-3.jpg'}
+    ];
+
+    // ====== APP STATE ======
+    const CART = [];
+    const ORDERS = [];
+
+    // ====== UTIL ======
+    const rup = n => n.toString();
+    const placeholderSVG = (label='Image') => `data:image/svg+xml;utf8,${encodeURIComponent(`
+      <svg xmlns='http://www.w3.org/2000/svg' width='600' height='400'>
+        <rect width='100%' height='100%' fill='%23eef2ff'/>
+        <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='22' fill='%236475a4'>${label}</text>
+      </svg>
+    `)}`;
+
+    function imgTag(src, alt){
+      const safeAlt = alt || 'Product image';
+      return `<img src="${src}" alt="${safeAlt}" onerror="this.onerror=null;this.src='${placeholderSVG(safeAlt)}'">`;
+    }
+
+    // ====== RENDER ======
+    const featuredWrap = document.getElementById('featured');
+    const productGrid = document.getElementById('productGrid');
+
+    function renderProducts(){
+      productGrid.innerHTML = '';
+      PRODUCTS.forEach(p=>{
+        const card = document.createElement('div');
+        card.className = 'product';
+        card.innerHTML = `
+          ${imgTag(p.img, p.name)}
+          <div class='pbody'>
+            <h3 class='pname'>${p.name}</h3>
+            <div class='price'>₹${rup(p.price)}</div>
+            <div class='pfoot'>
+              <button class='btn' onclick='addToCart(${p.id})'>Add to Cart</button>
+              <button class='btn ghost' onclick='buyNow(${p.id})'>Buy Now</button>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(card);
+      });
+
+      // Featured = first 4 items
+      featuredWrap.innerHTML = '';
+      PRODUCTS.slice(0,4).forEach(p=>{
+        const card = document.createElement('div');
+        card.className = 'product';
+        card.innerHTML = `
+          ${imgTag(p.img, p.name)}
+          <div class='pbody'>
+            <div class='pname'>${p.name}</div>
+            <div class='price'>₹${rup(p.price)}</div>
+            <div class='pfoot'>
+              <button class='btn' onclick='addToCart(${p.id})'>Add</button>
+              <button class='btn ghost' onclick='buyNow(${p.id})'>Buy</button>
+            </div>
+          </div>`;
+        featuredWrap.appendChild(card);
+      });
+    }
+
+    // ====== CART ======
+    function addToCart(id){
+      const prod = PRODUCTS.find(x=>x.id===id);
+      if(!prod) return;
+      CART.push({...prod});
+      refreshCartUI();
+      alert(prod.name + ' added to cart');
+    }
+
+    function buyNow(id){ addToCart(id); showSection('cart'); openRazorpay(); }
+
+    function removeFromCart(idx){ CART.splice(idx,1); refreshCartUI(); }
+
+    function refreshCartUI(){
+      const list = document.getElementById('cartList');
+      const listPage = document.getElementById('cartPageList');
+      list.innerHTML = ''; listPage.innerHTML = '';
+      let total = 0;
+      CART.forEach((item, idx)=>{
+        total += item.price;
+        const li = document.createElement('li');
+        li.style.padding='8px 0';
+        li.style.borderBottom='1px dashed var(--line)';
+        li.innerHTML = `<div style='display:flex;justify-content:space-between;align-items:center'>
+                          <div>${item.name}<div class='small'>₹${item.price}</div></div>
+                          <button class='btn ghost' onclick='removeFromCart(${idx})'>Remove</button>
+                        </div>`;
+        list.appendChild(li);
+
+        const li2 = document.createElement('li');
+        li2.style.padding='8px 0';
+        li2.style.borderBottom='1px dashed var(--line)';
+        li2.innerHTML = `<div style='display:flex;justify-content:space-between'><span>${item.name}</span><span class='small'>₹${item.price}</span></div>`;
+        listPage.appendChild(li2);
+      });
+      document.getElementById('cartTotal').textContent = total;
+      document.getElementById('cartPageTotal').textContent = total;
+      document.getElementById('cartCount').textContent = CART.length;
+      document.getElementById('cartCountSidebar').textContent = CART.length;
+    }
+
+    function openWhatsAppOrder(){
+      if(!CART.length){ alert('Cart is empty'); return; }
+      let text = `Hello Vishal Shop, I want to order:%0A`;
+      let total = 0;
+      CART.forEach(i=>{ text += `• ${i.name} - ₹${i.price}%0A`; total += i.price; });
+      text += `Total: ₹${total}%0AName:%0APhone:%0AAddress:%0A`;
+      const url = `https://wa.me/${BUSINESS.whatsapp}?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    // ====== RAZORPAY (Client Demo) ======
+    // For production, create orders on your server using key_secret and use order_id here.
+    function openRazorpay(){
+      if(!CART.length){ alert('Cart is empty'); return; }
+      const total = CART.reduce((s,i)=>s+i.price,0);
+      const amountPaise = total * 100;
+
+      const options = {
+        key: 'rzp_test_YourKeyHere', // TODO: Replace with your Razorpay TEST key id. For LIVE, use live key.
+        amount: amountPaise,
+        currency: 'INR',
+        name: BUSINESS.name,
+        description: 'Order payment',
+        // order_id: 'order_XXXXXXXX', // Recommended: pass order_id from your server
+        handler: function (response) {
+          alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+          saveOrder(response.razorpay_payment_id, total);
+        },
+        prefill: { name: '', email: '', contact: '' },
+        theme: { color: '#0f9d58' }
+      };
+      const rzp = new Razorpay(options);
+      rzp.on('payment.failed', function (resp) {
+        alert('Payment failed: ' + (resp.error && resp.error.description || 'Unknown error'));
+      });
+      rzp.open();
+    }
+
+    // ====== ORDERS (local demo) ======
+    function saveOrder(paymentId, total){
+      const when = new Date().toLocaleString();
+      ORDERS.push({ id: paymentId, total, date: when, items: CART.slice() });
+      CART.length = 0; refreshCartUI();
+      renderOrders();
+      showSection('orders');
+    }
+
+    function renderOrders(){
+      const box = document.getElementById('ordersWrap');
+      if(!ORDERS.length){ box.innerHTML = 'No orders yet.'; return; }
+      box.innerHTML = ORDERS.map(o=>`
+        <div class='card' style='margin:8px 0'>
+          <div style='display:flex;justify-content:space-between'>
+            <div><strong>Order ID:</strong> ${o.id}</div>
+            <div class='small'>${o.date}</div>
+          </div>
+          <div class='small'>Total: ₹${o.total}</div>
+          <ul class='small'>${o.items.map(i=>`<li>${i.name} — ₹${i.price}</li>`).join('')}</ul>
+        </div>
+      `).join('');
+    }
+
+    // ====== NAV ======
+    function showSection(id){
+      document.querySelectorAll('main .section').forEach(s=>s.classList.add('hidden'));
+      const el = document.getElementById(id); if(el) el.classList.remove('hidden');
+      window.scrollTo({top:0,behavior:'smooth'});
+      if(id==='orders') renderOrders();
+    }
+
+    // ====== INIT ======
+    (function init(){
+      document.getElementById('yr').textContent = new Date().getFullYear();
+      renderProducts();
+      refreshCartUI();
+      showSection('home');
+    })();
+  </script>  <!-- Structured Data -->  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "Vishal Shop",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Near Jio Tower",
+      "addressLocality": "Paliganj",
+      "postalCode": "801110",
+      "addressCountry": "IN"
+    },
+    "telephone": "+916206364936",
+    "email": "vishalk785808@gmail.com",
+    "paymentAccepted": ["UPI","Cards","NetBanking","Amazon Pay"],
+    "areaServed": "Paliganj",
+    "openingHours": "Mo-Su 09:00-21:00"
+  }
+  </script></body>
 </html>
