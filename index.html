@@ -3,111 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal Services</title>
+  <title>Vishal Shop – Digital & Creative Services</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header { background: #2c3e50; color: white; padding: 15px; text-align: center; }
-    nav { background: #34495e; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-    nav a:hover { text-decoration: underline; }
-    section { padding: 20px; }
-    footer { background: #2c3e50; color: white; text-align: center; padding: 15px; margin-top: 20px; }
-    .services { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-    .card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: #f9f9f9; }
-    .btn { background: #27ae60; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 5px; }
-    .btn:hover { background: #219150; }
+    body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f7fb; color:#333;}
+    header {background:#2c3e50; color:#fff; padding:20px; text-align:center;}
+    nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:bold;}
+    nav a:hover {text-decoration:underline;}
+    .container {width:90%; max-width:1100px; margin:20px auto;}
+    h1, h2, h3 {color:#2c3e50;}
+    .services {display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;}
+    .card {
+      background:#fff; 
+      padding:20px; 
+      border-radius:10px; 
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {transform: translateY(-5px);}
+    .btn {
+      display:inline-block; 
+      padding:10px 15px; 
+      background:#27ae60; 
+      color:#fff; 
+      text-decoration:none; 
+      border-radius:5px;
+      font-weight:bold;
+    }
+    .btn:hover {background:#219150;}
+    footer {
+      background:#2c3e50; 
+      color:#fff; 
+      text-align:center; 
+      padding:15px; 
+      margin-top:30px;
+    }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Vishal Shop</h1>
+    <p>Your trusted partner for affordable digital & creative services</p>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <a href="#policies">Policies</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>Vishal Services</h1>
-  <p>Your trusted partner for digital services</p>
-</header>
-
-<nav>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#contact">Contact</a>
-  <a href="#terms">Terms</a>
-</nav>
-
-<section id="home">
-  <h2>Welcome to Vishal Services</h2>
-  <p>We provide high-quality digital and business services with quick delivery and trusted support.</p>
-</section>
-
-<section id="about">
-  <h2>About Us</h2>
-  <p>Vishal Services is committed to offering top-notch solutions for individuals and businesses. 
-     Our goal is to make services affordable and accessible to everyone.</p>
-</section>
-
-<section id="services">
-  <h2>Our Services</h2>
-  <div class="services">
-    <div class="card">Website Development - ₹5000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Graphic Design - ₹2000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">SEO Optimization - ₹3000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Logo Design - ₹1500 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">App UI/UX Design - ₹4000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Content Writing - ₹1000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Social Media Marketing - ₹2500 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Video Editing - ₹3500 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Business Consulting - ₹6000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">E-commerce Setup - ₹7000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Domain & Hosting Setup - ₹1200 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Resume Building - ₹800 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Online Ads Management - ₹3000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Shopify Store Setup - ₹5000 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Business Card Design - ₹700 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Flyer/Brochure Design - ₹1200 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Email Marketing Setup - ₹1500 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Digital Poster Design - ₹900 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Data Entry Service - ₹600 <br><button class="btn" onclick="payNow()">Order Now</button></div>
-    <div class="card">Virtual Assistant - ₹2500 <br><button class="btn" onclick="payNow()">Order Now</button></div>
+  <div class="container" id="home">
+    <h2>Welcome to Vishal Shop</h2>
+    <p>One-stop solution for Resume, Logo Design, Websites, Writing & many more professional services – all at affordable prices.</p>
   </div>
-</section>
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>Email: support@vishalservices.com</p>
-  <p>Phone: +91-9876543210</p>
-  <p>Address: Lucknow, Uttar Pradesh, India</p>
-</section>
+  <div class="container" id="about">
+    <h2>About Us</h2>
+    <p>At Vishal Shop, we provide professional and affordable digital services like resume writing, logo design, content creation, and business consultancy. 
+       Our mission is to help students, professionals, and small businesses grow with creative and digital support.</p>
+  </div>
 
-<section id="terms">
-  <h2>Return / Refund / Cancellation Policy</h2>
-  <p>✔ Delivery Time: 7 Days (depends on service)<br>
-     ✔ Refunds applicable only if service not delivered.<br>
-     ✔ Cancellation allowed within 24 hours of order.<br>
-     ✔ For disputes, contact support@vishalservices.com</p>
-</section>
+  <div class="container" id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="card"><h3>Resume Writing</h3><p>Professional job-ready resume.</p><p><b>₹199</b></p><a class="btn" href="https://rzp.io/l/demo1">Order Now</a></div>
+      <div class="card"><h3>CV Review</h3><p>Improve your existing CV.</p><p><b>₹99</b></p><a class="btn" href="https://rzp.io/l/demo2">Order Now</a></div>
+      <div class="card"><h3>Logo Design</h3><p>Unique logos for your brand.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo3">Order Now</a></div>
+      <div class="card"><h3>Banner/Poster Design</h3><p>Creative posters and banners.</p><p><b>₹399</b></p><a class="btn" href="https://rzp.io/l/demo4">Order Now</a></div>
+      <div class="card"><h3>Social Media Setup</h3><p>Create and setup accounts.</p><p><b>₹299</b></p><a class="btn" href="https://rzp.io/l/demo5">Order Now</a></div>
+      <div class="card"><h3>Website Development</h3><p>Basic websites for startups.</p><p><b>₹1499</b></p><a class="btn" href="https://rzp.io/l/demo6">Order Now</a></div>
+      <div class="card"><h3>Blog Writing</h3><p>Engaging blog content.</p><p><b>₹249</b></p><a class="btn" href="https://rzp.io/l/demo7">Order Now</a></div>
+      <div class="card"><h3>Article Writing</h3><p>High quality articles.</p><p><b>₹299</b></p><a class="btn" href="https://rzp.io/l/demo8">Order Now</a></div>
+      <div class="card"><h3>Translation</h3><p>English ↔ Hindi translation.</p><p><b>₹199/page</b></p><a class="btn" href="https://rzp.io/l/demo9">Order Now</a></div>
+      <div class="card"><h3>Assignment Help</h3><p>Academic support.</p><p><b>₹399 onwards</b></p><a class="btn" href="https://rzp.io/l/demo10">Order Now</a></div>
+      <div class="card"><h3>Typing Work</h3><p>Fast and accurate typing.</p><p><b>₹2/page</b></p><a class="btn" href="https://rzp.io/l/demo11">Order Now</a></div>
+      <div class="card"><h3>Data Entry</h3><p>Reliable data entry work.</p><p><b>₹5/record</b></p><a class="btn" href="https://rzp.io/l/demo12">Order Now</a></div>
+      <div class="card"><h3>Business Consultancy</h3><p>Startup/business advice.</p><p><b>₹599/session</b></p><a class="btn" href="https://rzp.io/l/demo13">Order Now</a></div>
+      <div class="card"><h3>Freelancing Guidance</h3><p>Start freelancing easily.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo14">Order Now</a></div>
+      <div class="card"><h3>Portfolio Website</h3><p>Showcase your work.</p><p><b>₹1199</b></p><a class="btn" href="https://rzp.io/l/demo15">Order Now</a></div>
+      <div class="card"><h3>Digital Visiting Card</h3><p>Modern business card.</p><p><b>₹349</b></p><a class="btn" href="https://rzp.io/l/demo16">Order Now</a></div>
+      <div class="card"><h3>YouTube Channel Setup</h3><p>Setup and optimize channel.</p><p><b>₹399</b></p><a class="btn" href="https://rzp.io/l/demo17">Order Now</a></div>
+      <div class="card"><h3>Ad Posting Help</h3><p>Post your ads online.</p><p><b>₹199</b></p><a class="btn" href="https://rzp.io/l/demo18">Order Now</a></div>
+      <div class="card"><h3>Email Writing Service</h3><p>Professional emails.</p><p><b>₹99/mail</b></p><a class="btn" href="https://rzp.io/l/demo19">Order Now</a></div>
+      <div class="card"><h3>Domain & Hosting Help</h3><p>Get online easily.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo20">Order Now</a></div>
+    </div>
+  </div>
 
-<footer>
-  <p>© 2025 Vishal Services | All Rights Reserved</p>
-</footer>
+  <div class="container" id="contact">
+    <h2>Contact Us</h2>
+    <p>Have questions or need custom service? Get in touch!</p>
+    <p><b>Phone:</b> 6206364936</p>
+    <p><b>Email:</b> vishalservices@example.com</p>
+  </div>
 
-<!-- Razorpay Integration -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-function payNow(){
-  var options = {
-    "key": "rzp_test_yourkey", // replace with Razorpay Key ID
-    "amount": 1000 * 100, // amount in paise (1000 INR = 100000)
-    "currency": "INR",
-    "name": "Vishal Services",
-    "description": "Service Payment",
-    "handler": function (response){
-        alert("Payment Successful. Payment ID: " + response.razorpay_payment_id);
-    },
-    "theme": { "color": "#3399cc" }
-  };
-  var rzp1 = new Razorpay(options);
-  rzp1.open();
-}
-</script>
+  <div class="container" id="policies">
+    <h2>Policies</h2>
+    <p><b>Delivery:</b> Digital services are usually delivered within 3-7 working days.</p>
+    <p><b>Refunds:</b> Some services are refundable if not delivered. Content/Design services are non-refundable once delivered.</p>
+    <p><b>Cancellation:</b> Allowed within 24 hours of placing order.</p>
+  </div>
 
+  <footer>
+    <p>© 2025 Vishal Shop | All Rights Reserved</p>
+  </footer>
 </body>
 </html>
