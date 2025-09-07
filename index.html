@@ -1,110 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vishal Shop – Digital & Creative Services</title>
-  <style>
-    body {font-family: Arial, sans-serif; margin:0; padding:0; background:#f4f7fb; color:#333;}
-    header {background:#2c3e50; color:#fff; padding:20px; text-align:center;}
-    nav a {color:#fff; margin:0 15px; text-decoration:none; font-weight:bold;}
-    nav a:hover {text-decoration:underline;}
-    .container {width:90%; max-width:1100px; margin:20px auto;}
-    h1, h2, h3 {color:#2c3e50;}
-    .services {display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;}
-    .card {
-      background:#fff; 
-      padding:20px; 
-      border-radius:10px; 
-      box-shadow:0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-    .card:hover {transform: translateY(-5px);}
-    .btn {
-      display:inline-block; 
-      padding:10px 15px; 
-      background:#27ae60; 
-      color:#fff; 
-      text-decoration:none; 
-      border-radius:5px;
-      font-weight:bold;
-    }
-    .btn:hover {background:#219150;}
-    footer {
-      background:#2c3e50; 
-      color:#fff; 
-      text-align:center; 
-      padding:15px; 
-      margin-top:30px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechGadgets - Shop Now</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6c5ce7, #8e44ad);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #ffd700;
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: url('https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: #333;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product:hover {
+            transform: translateY(-10px);
+        }
+        
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .product-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 1.2rem;
+            color: #6c5ce7;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .product-desc {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .product-btn {
+            display: inline-block;
+            background: #6c5ce7;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .product-btn:hover {
+            background: #5649c9;
+        }
+        
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            margin: 1.5rem 0;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: #6c5ce7;
+            font-weight: bold;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+        }
+        
+        .quantity-btn {
+            background: #f1f1f1;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            margin: 0 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0.3rem;
+        }
+        
+        .remove-item {
+            color: #ff6b6b;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: right;
+            margin: 1.5rem 0;
+        }
+        
+        .checkout-btns {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-icons {
+            margin: 1rem 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #ffd700;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .products {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cart-item img {
+                margin-bottom: 1rem;
+            }
+            
+            .checkout-btns {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .checkout-btns .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Vishal Shop</h1>
-    <p>Your trusted partner for affordable digital & creative services</p>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About Us</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-      <a href="#policies">Policies</a>
-    </nav>
-  </header>
-
-  <div class="container" id="home">
-    <h2>Welcome to Vishal Shop</h2>
-    <p>One-stop solution for Resume, Logo Design, Websites, Writing & many more professional services – all at affordable prices.</p>
-  </div>
-
-  <div class="container" id="about">
-    <h2>About Us</h2>
-    <p>At Vishal Shop, we provide professional and affordable digital services like resume writing, logo design, content creation, and business consultancy. 
-       Our mission is to help students, professionals, and small businesses grow with creative and digital support.</p>
-  </div>
-
-  <div class="container" id="services">
-    <h2>Our Services</h2>
-    <div class="services">
-      <div class="card"><h3>Resume Writing</h3><p>Professional job-ready resume.</p><p><b>₹199</b></p><a class="btn" href="https://rzp.io/l/demo1">Order Now</a></div>
-      <div class="card"><h3>CV Review</h3><p>Improve your existing CV.</p><p><b>₹99</b></p><a class="btn" href="https://rzp.io/l/demo2">Order Now</a></div>
-      <div class="card"><h3>Logo Design</h3><p>Unique logos for your brand.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo3">Order Now</a></div>
-      <div class="card"><h3>Banner/Poster Design</h3><p>Creative posters and banners.</p><p><b>₹399</b></p><a class="btn" href="https://rzp.io/l/demo4">Order Now</a></div>
-      <div class="card"><h3>Social Media Setup</h3><p>Create and setup accounts.</p><p><b>₹299</b></p><a class="btn" href="https://rzp.io/l/demo5">Order Now</a></div>
-      <div class="card"><h3>Website Development</h3><p>Basic websites for startups.</p><p><b>₹1499</b></p><a class="btn" href="https://rzp.io/l/demo6">Order Now</a></div>
-      <div class="card"><h3>Blog Writing</h3><p>Engaging blog content.</p><p><b>₹249</b></p><a class="btn" href="https://rzp.io/l/demo7">Order Now</a></div>
-      <div class="card"><h3>Article Writing</h3><p>High quality articles.</p><p><b>₹299</b></p><a class="btn" href="https://rzp.io/l/demo8">Order Now</a></div>
-      <div class="card"><h3>Translation</h3><p>English ↔ Hindi translation.</p><p><b>₹199/page</b></p><a class="btn" href="https://rzp.io/l/demo9">Order Now</a></div>
-      <div class="card"><h3>Assignment Help</h3><p>Academic support.</p><p><b>₹399 onwards</b></p><a class="btn" href="https://rzp.io/l/demo10">Order Now</a></div>
-      <div class="card"><h3>Typing Work</h3><p>Fast and accurate typing.</p><p><b>₹2/page</b></p><a class="btn" href="https://rzp.io/l/demo11">Order Now</a></div>
-      <div class="card"><h3>Data Entry</h3><p>Reliable data entry work.</p><p><b>₹5/record</b></p><a class="btn" href="https://rzp.io/l/demo12">Order Now</a></div>
-      <div class="card"><h3>Business Consultancy</h3><p>Startup/business advice.</p><p><b>₹599/session</b></p><a class="btn" href="https://rzp.io/l/demo13">Order Now</a></div>
-      <div class="card"><h3>Freelancing Guidance</h3><p>Start freelancing easily.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo14">Order Now</a></div>
-      <div class="card"><h3>Portfolio Website</h3><p>Showcase your work.</p><p><b>₹1199</b></p><a class="btn" href="https://rzp.io/l/demo15">Order Now</a></div>
-      <div class="card"><h3>Digital Visiting Card</h3><p>Modern business card.</p><p><b>₹349</b></p><a class="btn" href="https://rzp.io/l/demo16">Order Now</a></div>
-      <div class="card"><h3>YouTube Channel Setup</h3><p>Setup and optimize channel.</p><p><b>₹399</b></p><a class="btn" href="https://rzp.io/l/demo17">Order Now</a></div>
-      <div class="card"><h3>Ad Posting Help</h3><p>Post your ads online.</p><p><b>₹199</b></p><a class="btn" href="https://rzp.io/l/demo18">Order Now</a></div>
-      <div class="card"><h3>Email Writing Service</h3><p>Professional emails.</p><p><b>₹99/mail</b></p><a class="btn" href="https://rzp.io/l/demo19">Order Now</a></div>
-      <div class="card"><h3>Domain & Hosting Help</h3><p>Get online easily.</p><p><b>₹499</b></p><a class="btn" href="https://rzp.io/l/demo20">Order Now</a></div>
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <span>TechGadgets</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="cart-icon" id="cartIcon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Innovative Tech Products</h1>
+            <p>Discover the latest gadgets that will transform your digital experience</p>
+            <a href="#" class="btn">Explore Products</a>
+        </div>
+    </section>
+    
+    <section class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products">
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wireless Earbuds">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Wireless Earbuds Pro</h3>
+                    <p class="product-price">$129.99</p>
+                    <p class="product-desc">Premium sound quality with noise cancellation and 24-hour battery life.</p>
+                    <button class="product-btn" onclick="addToCart(1, 'Wireless Earbuds Pro', 129.99, 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1585290399870-3ff5a1b8a2af?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Watch">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Smart Watch Series 5</h3>
+                    <p class="product-price">$199.99</p>
+                    <p class="product-desc">Track your fitness, receive notifications, and stay connected on the go.</p>
+                    <button class="product-btn" onclick="addToCart(2, 'Smart Watch Series 5', 199.99, 'https://images.unsplash.com/photo-1585290399870-3ff5a1b8a2af?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wireless Charger">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Fast Wireless Charger</h3>
+                    <p class="product-price">$49.99</p>
+                    <p class="product-desc">Charge your devices quickly without the hassle of cables.</p>
+                    <button class="product-btn" onclick="addToCart(3, 'Fast Wireless Charger', 49.99, 'https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Bluetooth Speaker">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Portable Bluetooth Speaker</h3>
+                    <p class="product-price">$79.99</p>
+                    <p class="product-desc">Powerful sound in a compact, waterproof design for any adventure.</p>
+                    <button class="product-btn" onclick="addToCart(4, 'Portable Bluetooth Speaker', 79.99, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Smart Home Hub">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Smart Home Hub</h3>
+                    <p class="product-price">$149.99</p>
+                    <p class="product-desc">Control your smart home devices with voice commands and automation.</p>
+                    <button class="product-btn" onclick="addToCart(5, 'Smart Home Hub', 149.99, 'https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="VR Headset">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">VR Headset Pro</h3>
+                    <p class="product-price">$299.99</p>
+                    <p class="product-desc">Immerse yourself in virtual worlds with high-resolution displays.</p>
+                    <button class="product-btn" onclick="addToCart(6, 'VR Headset Pro', 299.99, 'https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Your Shopping Cart</h2>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <p id="emptyCart">Your cart is empty</p>
+            </div>
+            <div class="cart-total" id="cartTotal">
+                Total: $0.00
+            </div>
+            <div class="checkout-btns">
+                <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+                <button class="btn" style="background: #666;" onclick="closeModal()">Continue Shopping</button>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <span>TechGadgets</span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p>&copy; 2023 TechGadgets. All rights reserved.</p>
+        </div>
+    </footer>
 
-  <div class="container" id="contact">
-    <h2>Contact Us</h2>
-    <p>Have questions or need custom service? Get in touch!</p>
-    <p><b>Phone:</b> 6206364936</p>
-    <p><b>Email:</b> vishalservices@example.com</p>
-  </div>
-
-  <div class="container" id="policies">
-    <h2>Policies</h2>
-    <p><b>Delivery:</b> Digital services are usually delivered within 3-7 working days.</p>
-    <p><b>Refunds:</b> Some services are refundable if not delivered. Content/Design services are non-refundable once delivered.</p>
-    <p><b>Cancellation:</b> Allowed within 24 hours of placing order.</p>
-  </div>
-
-  <footer>
-    <p>© 2025 Vishal Shop | All Rights Reserved</p>
-  </footer>
+    <script>
+        // Cart functionality
+        let cart = [];
+        const cartModal = document.getElementById('cartModal');
+        const cartIcon = document.getElementById('cartIcon');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        const emptyCart = document.getElementById('emptyCart');
+        
+        // Open modal when cart icon is clicked
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+            updateCartDisplay();
+        });
+        
+        // Close modal when X is clicked
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                closeModal();
+            }
+        });
+        
+        function closeModal() {
+            cartModal.style.display = 'none';
+        }
+        
+        // Add to cart function
+        function addToCart(id, name, price, image) {
+            // Check if product already in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show confirmation
+            alert(`${name} added to cart!`);
+        }
+        
+        // Update cart count badge
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Update cart display in modal
+        function updateCartDisplay() {
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                cartTotal.textContent = 'Total: $0.00';
+                return;
+            }
+            
+            emptyCart.style.display = 'none';
+            
+            // Clear current items
+            while (cartItems.firstChild) {
+                if (cartItems.firstChild.id === 'emptyCart') {
+                    break;
+                }
+                cartItems.removeChild(cartItems.firstChild);
+            }
+            
+            // Add items to cart display
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantity(${item.id}, this.value)">
+                            <button class="quantity-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">Remove</button>
+                    </div>
+                    <div style="margin-left: auto; font-weight: bold;">
+                        $${itemTotal.toFixed(2)}
+                    </div>
+                `;
+                
+                cartItems.appendChild(cartItemElement);
+            });
+            
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+        }
+        
+        // Change quantity with + and - buttons
+        function changeQuantity(id, change) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity += change;
+                
+                if (item.quantity < 1) {
+                    removeFromCart(id);
+                } else {
+                    updateCartCount();
+                    updateCartDisplay();
+                }
+            }
+        }
+        
+        // Update quantity from input field
+        function updateQuantity(id, newQuantity) {
+            const quantity = parseInt(newQuantity);
+            if (isNaN(quantity) || quantity < 1) return;
+            
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = quantity;
+                updateCartCount();
+                updateCartDisplay();
+            }
+        }
+        
+        // Remove item from cart
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartCount();
+            updateCartDisplay();
+        }
+        
+        // Checkout function
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            alert('Thank you for your purchase! Redirecting to payment...');
+            // In a real application, this would redirect to a payment page
+            cart = [];
+            updateCartCount();
+            updateCartDisplay();
+            closeModal();
+        }
+    </script>
 </body>
 </html>
